@@ -1,0 +1,31 @@
+{
+  "name": "klox-cdn",
+  "version": "1.0.1",
+  "description": "",
+  "keywords": [],
+  "main": "lib/index.js",
+  "scripts": {
+    "png": "tsx scripts/png2webp.ts",
+    "poster": "tsx scripts/extract-poster.ts",
+    "last-frame": "tsx scripts/extract-poster.ts --last",
+    "release": "./release.sh patch \"update\""
+  },
+  "homepage": "https://klox.ai/",
+  "author": "https://klox.ai/",
+  "repository": {
+    "type": "git",
+    "url": "https://klox.ai/"
+  },
+  "bugs": {
+    "url": "https://klox.ai/"
+  },
+  "files": [
+    "files"
+  ],
+  "devDependencies": {
+    "@types/node": "^24.1.0",
+    "sharp": "^0.34.3",
+    "tsx": "^4.20.3",
+    "typescript": "^5.8.3"
+  }
+}
