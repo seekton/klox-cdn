@@ -17,7 +17,7 @@ function isSupportedVideoFile(filePath: string): boolean {
 // 获取目录下所有视频文件（支持递归子目录）
 async function getVideoFilesFromDirectory(
   dirPath: string,
-  recursive: boolean = false
+  recursive: boolean = false,
 ): Promise<string[]> {
   const videoFiles: string[] = [];
 
@@ -33,7 +33,7 @@ async function getVideoFilesFromDirectory(
         // 递归处理子目录
         const subDirFiles = await getVideoFilesFromDirectory(
           fullPath,
-          recursive
+          recursive,
         );
         videoFiles.push(...subDirFiles);
       }
@@ -61,7 +61,7 @@ async function checkFFmpeg(): Promise<boolean> {
 async function extractPoster(
   videoPath: string,
   outputPath: string,
-  quality: number = 75
+  quality: number = 75,
 ): Promise<void> {
   try {
     // 使用 FFmpeg 提取第一帧为 WebP 格式
@@ -84,7 +84,7 @@ async function extractPoster(
 async function extractLastFrame(
   videoPath: string,
   outputPath: string,
-  quality: number = 75
+  quality: number = 75,
 ): Promise<void> {
   try {
     // 使用更简单可靠的方法：直接从视频末尾提取最后一帧
@@ -105,7 +105,7 @@ async function extractLastFrame(
 } // 通用的视频帧提取函数
 async function extractFrames(
   useLastFrame: boolean = false,
-  onlyMissingPosters: boolean = false
+  onlyMissingPosters: boolean = false,
 ) {
   // 检查 FFmpeg 是否可用
   if (!(await checkFFmpeg())) {
@@ -117,10 +117,10 @@ async function extractFrames(
     ? `为未生成 poster.webp 的视频提取${frameType}作为 poster`
     : `提取视频${frameType}`;
 
-  console.log(`🔍 正在扫描 monet 目录下的所有视频文件（${actionDesc}）...`);
+  console.log(`🔍 正在扫描 files 目录下的所有视频文件（${actionDesc}）...`);
 
-  // 递归扫描 monet 目录下的所有视频文件
-  const allVideoFiles = await getVideoFilesFromDirectory('monet', true);
+  // 递归扫描 files 目录下的所有视频文件
+  const allVideoFiles = await getVideoFilesFromDirectory('files', true);
 
   if (allVideoFiles.length === 0) {
     console.log('📹 未找到任何视频文件');
@@ -176,7 +176,7 @@ async function extractFrames(
       const outputStats = await fs.stat(outputPath);
       const sizeDesc = onlyMissingPosters ? 'poster' : frameType;
       console.log(
-        `   ${sizeDesc}大小: ${(outputStats.size / 1024).toFixed(1)}KB`
+        `   ${sizeDesc}大小: ${(outputStats.size / 1024).toFixed(1)}KB`,
       );
       processedCount++;
     } catch (error) {
@@ -193,12 +193,12 @@ async function extractFrames(
   console.log(completionMsg);
 }
 
-// 自动扫描 monet 目录下的所有视频文件并提取最后一帧作为 poster（只处理未生成 poster.webp 的视频）
+// 自动扫描 files 目录下的所有视频文件并提取最后一帧作为 poster（只处理未生成 poster.webp 的视频）
 async function extractLastFrames() {
   await extractFrames(true, true);
 }
 
-// 自动扫描 monet 目录下的所有视频文件
+// 自动扫描 files 目录下的所有视频文件
 async function main() {
   await extractFrames(false, false);
 }
