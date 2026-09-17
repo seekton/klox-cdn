@@ -14,7 +14,7 @@ function isSupportedImageFile(filePath: string): boolean {
 // 获取目录下所有图片文件（支持递归子目录）
 async function getImageFilesFromDirectory(
   dirPath: string,
-  recursive: boolean = false
+  recursive: boolean = false,
 ): Promise<string[]> {
   const imageFiles: string[] = [];
 
@@ -31,7 +31,7 @@ async function getImageFilesFromDirectory(
         // 递归处理子目录
         const subDirFiles = await getImageFilesFromDirectory(
           fullPath,
-          recursive
+          recursive,
         );
         imageFiles.push(...subDirFiles);
       }
@@ -71,8 +71,8 @@ async function processWildcardPath(wildcardPath: string): Promise<string[]> {
 const convertFiles = [
   {
     image: 'files/*',
-    width: 1024,
-    height: 1024,
+    width: 2048,
+    height: 2048,
   },
 ];
 
@@ -93,7 +93,7 @@ async function main() {
         for (const matchedPath of matchedPaths) {
           const imageFiles = await getImageFilesFromDirectory(
             matchedPath,
-            true
+            true,
           ); // 递归处理
 
           // 将目录下的每个图片文件添加到转换列表
@@ -112,7 +112,7 @@ async function main() {
         if (stats.isDirectory()) {
           const imageFiles = await getImageFilesFromDirectory(
             targetPath,
-            false
+            false,
           ); // 不递归，保持原有行为
 
           // 将目录下的每个图片文件添加到转换列表
