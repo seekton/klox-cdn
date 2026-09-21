@@ -1,8 +1,14 @@
 {
   "name": "klox-cdn",
   "version": "1.0.5",
-  "description": "",
-  "keywords": [],
+  "description": "Static assets for klox.ai, served over jsDelivr",
+  "keywords": [
+    "cdn",
+    "jsdelivr",
+    "webp",
+    "assets",
+    "klox"
+  ],
   "main": "lib/index.js",
   "scripts": {
     "png": "tsx scripts/png2webp.ts",
@@ -14,10 +20,10 @@
   "author": "https://klox.ai/",
   "repository": {
     "type": "git",
-    "url": "https://klox.ai/"
+    "url": "git+https://github.com/seekton/klox-cdn.git"
   },
   "bugs": {
-    "url": "https://klox.ai/"
+    "url": "https://github.com/seekton/klox-cdn/issues"
   },
   "files": [
     "files"
